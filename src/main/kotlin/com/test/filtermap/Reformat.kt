@@ -1,12 +1,12 @@
 package com.test.filtermap
 
+import com.test.filtermap.visitors.ApplyCallChainVisitor
 import com.test.filtermap.visitors.CollectCallsVisitor
 import com.test.parser.CallChainLexer
 import com.test.parser.CallChainParser
 import org.antlr.v4.runtime.*
 
-@Throws(TypeErrorException::class, SyntaxErrorException::class)
-fun reformat(callChainLine: String): String {
+private fun parseCallChain(callChainLine: String): CallChainParser.CallChainContext {
     val simpleErrorListener = object : BaseErrorListener() {
         override fun syntaxError(
             recognizer: Recognizer<*, *>?,
@@ -27,11 +27,23 @@ fun reformat(callChainLine: String): String {
     val parser = CallChainParser(CommonTokenStream(lexer))
     parser.removeErrorListeners()
     parser.addErrorListener(simpleErrorListener)
+    return parser.callChain()
+}
 
-    val callChain = parser.callChain()
+@Throws(TypeErrorException::class, SyntaxErrorException::class)
+fun reformat(callChainLine: String): String {
+    val callChain = parseCallChain(callChainLine)
     val collector = CollectCallsVisitor()
 
     callChain.accept(collector)
 
     return collector.getCollectedString()
+}
+
+@Throws(TypeErrorException::class, SyntaxErrorException::class)
+fun apply(callChainLine: String, list: List<Int>): List<Int> {
+    val callChain = parseCallChain(callChainLine)
+    val applyVisitor = ApplyCallChainVisitor(list)
+    callChain.accept(applyVisitor)
+    return applyVisitor.resultList
 }
