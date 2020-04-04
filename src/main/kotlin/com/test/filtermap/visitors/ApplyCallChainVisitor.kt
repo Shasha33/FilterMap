@@ -3,6 +3,9 @@ package com.test.filtermap.visitors
 import com.test.parser.CallChainBaseVisitor
 import com.test.parser.CallChainParser
 
+/**
+ * Call chain visitor applying all commands to the list.
+ */
 class ApplyCallChainVisitor(initialList: List<Int>) : CallChainBaseVisitor<Unit>() {
     private var list = initialList
     val resultList : List<Int>

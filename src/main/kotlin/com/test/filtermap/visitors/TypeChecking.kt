@@ -37,6 +37,11 @@ fun CallChainParser.BinaryExpressionContext.type(): ExpressionType {
     return ExpressionType.INT
 }
 
+/**
+ * Check binary expression operands has correct type to apply operation.
+ * int and int for arithmetic and comparison operations and
+ * bool and bool for logical.
+ */
 fun CallChainParser.BinaryExpressionContext.hasCorrectTypes(): Boolean {
     val leftType = left.type()
     val rightType = right.type()

@@ -4,6 +4,9 @@ import com.test.filtermap.TypeErrorException
 import com.test.parser.CallChainBaseVisitor
 import com.test.parser.CallChainParser
 
+/**
+ * Call chain visitor reformatting all actions with list to one filter call and one map call.
+ */
 class CollectCallsVisitor : CallChainBaseVisitor<Unit>() {
     private var mapExpression = "element"
     private var filterExpression = ""
@@ -53,6 +56,9 @@ class CollectCallsVisitor : CallChainBaseVisitor<Unit>() {
     }
 
 
+    /**
+     * Joins collected expressions to new correct call chain.
+     */
     fun getCollectedString(): String {
         if (filterExpression.isEmpty()) {
             filterExpression = "(1=1)"

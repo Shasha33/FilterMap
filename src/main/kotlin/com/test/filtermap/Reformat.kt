@@ -30,6 +30,9 @@ private fun parseCallChain(callChainLine: String): CallChainParser.CallChainCont
     return parser.callChain()
 }
 
+/**
+ * Reformats call chain to one filter call and one map call.
+ */
 @Throws(TypeErrorException::class, SyntaxErrorException::class)
 fun reformat(callChainLine: String): String {
     val callChain = parseCallChain(callChainLine)
@@ -40,6 +43,9 @@ fun reformat(callChainLine: String): String {
     return collector.getCollectedString()
 }
 
+/**
+ * Applies call chain to the list.
+ */
 @Throws(TypeErrorException::class, SyntaxErrorException::class)
 fun apply(callChainLine: String, list: List<Int>): List<Int> {
     val callChain = parseCallChain(callChainLine)
