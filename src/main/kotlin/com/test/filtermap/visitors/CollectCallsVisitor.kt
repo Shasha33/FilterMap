@@ -32,7 +32,7 @@ class CollectCallsVisitor : CallChainBaseVisitor<Unit>() {
 
             val left = ctx.left.accept(this)
             val right = ctx.right.accept(this)
-            return "($left${ctx.OPERATION()}$right)"
+            return "($left${ctx.operation().text}$right)"
         }
 
         override fun visitConstantExpression(ctx: CallChainParser.ConstantExpressionContext): String {

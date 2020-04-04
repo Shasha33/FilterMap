@@ -8,7 +8,7 @@ internal class ArithmeticExpressionComputer(private val itValue: Int) : CallChai
     override fun visitBinaryExpression(ctx: CallChainParser.BinaryExpressionContext): Int {
         val left = ctx.left.accept(this)
         val right = ctx.right.accept(this)
-        return when (ctx.OPERATION().text) {
+        return when (ctx.operation().text) {
             "+" -> left + right
             "-" -> left - right
             "*" -> left * right
@@ -30,7 +30,7 @@ internal class LogicExpressionComputer(itValue: Int) : CallChainBaseVisitor<Bool
         ArithmeticExpressionComputer(itValue)
 
     override fun visitBinaryExpression(ctx: CallChainParser.BinaryExpressionContext): Boolean {
-        val operation = ctx.OPERATION().text
+        val operation = ctx.operation().text
         return if (ctx.type() == ExpressionType.BOOL) {
             computeLogicOperation(operation, ctx.left, ctx.right)
         } else {

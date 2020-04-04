@@ -28,10 +28,10 @@ fun CallChainParser.ConstantExpressionContext.type(): ExpressionType {
 }
 
 fun CallChainParser.BinaryExpressionContext.type(): ExpressionType {
-    if (OPERATION().text in listOf("&", "|")) {
+    if (operation().text in listOf("&", "|")) {
         return ExpressionType.BOOL
     }
-    if (OPERATION().text in listOf("<", ">", "=")) {
+    if (operation().text in listOf("<", ">", "=")) {
         return ExpressionType.COMP
     }
     return ExpressionType.INT

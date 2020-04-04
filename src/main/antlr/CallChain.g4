@@ -16,14 +16,13 @@ call : mapCall | filterCall ;
 mapCall : 'map{' expression '}' ;
 filterCall : 'filter{' expression '}' ;
 expression : itExpression | constantExpression | binaryExpression;
-constantExpression : NUMBER;
+constantExpression : NUMBER | '-'NUMBER;
 itExpression : ELEMENT ;
-binaryExpression : '(' left=expression OPERATION right=expression ')';
+binaryExpression : '(' left=expression operation right=expression ')';
+operation : '-' | '+' | '*' | '>' | '<' | '=' | '&' | '|' ;
 
 
 
 fragment DIGIT : [0-9] ;
-fragment NATURAL_NUMBER : DIGIT+;
-OPERATION : '+' | '-' | '*' | '>' | '<' | '=' | '&' | '|' ;
-NUMBER : NATURAL_NUMBER | '-'NATURAL_NUMBER;
+NUMBER : DIGIT+;
 ELEMENT : 'element' ;
